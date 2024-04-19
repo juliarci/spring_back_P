@@ -1,7 +1,9 @@
-package monprojet.dao;
+package monprojet.dao.repositories;
 
+import monprojet.dao.entities.City;
 import org.springframework.data.jpa.repository.JpaRepository;
-import monprojet.entity.City;
+
+import java.util.List;
 
 public interface CityRepository extends JpaRepository<City, Integer> {
 
@@ -13,4 +15,10 @@ public interface CityRepository extends JpaRepository<City, Integer> {
      */
     City findByName(String cityName);
 
+    /**
+     * Récupère la liste des villes associées au pays
+     * @param country_id Id du pays concerné
+     * @return List des villes associées
+     */
+    List<City> findAllByCountry_Id(Integer country_id);
 }

@@ -3,13 +3,15 @@ package monprojet.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import monprojet.dao.entities.City;
+import monprojet.dao.entities.Country;
+import monprojet.dao.repositories.CityRepository;
+import monprojet.dao.repositories.CountryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import lombok.extern.log4j.Log4j2;
-import monprojet.entity.City;
-import monprojet.entity.Country;
 
 @Log4j2 // Génère le 'logger' pour afficher les messages de trace
 @DataJpaTest

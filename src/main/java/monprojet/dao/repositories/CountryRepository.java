@@ -1,33 +1,17 @@
-package monprojet.dao;
+package monprojet.dao.repositories;
 
 import java.util.List;
 
+import lombok.NonNull;
+import monprojet.dao.PopulationResultProjection;
+import monprojet.dao.entities.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import monprojet.entity.City;
-import monprojet.entity.Country;
 
 // This will be AUTO IMPLEMENTED by Spring 
 //
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
-    /**
-     * Calculer la population totale d'un pays.
-     * @param idDuPays l'identifiant du pays
-     * @return sa population totale (en millions d'habitants)
-     */
-    // On peut mettre des "méthodes par défaut" dans les interfaces.
-    default Integer populationDuPaysJava(int idDuPays) {
-        int resultat = 0;
-        Country country = findById(idDuPays).orElseThrow();
-        for (City c : country.getCities()) {
-            resultat += c.getPopulation();
-        }
-        return resultat;
-        // Ou alors, en une seule ligne :
-        // return country.getCities().stream().mapToInt(City::getPopulation).sum();
-    }
 
     // JPQL : formulée sur le modèle conceptuel de données
     @Query("SELECT SUM(c.population) FROM City c WHERE c.country.id = :idDuPays")
@@ -58,4 +42,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
     @Query(value = POPULATION_PAR_PAYS_SQL, nativeQuery = true)
     List<PopulationResultProjection> populationParPaysSQL();
 
+    @Override
+    @NonNull
+    List<Country> findAll();
 }

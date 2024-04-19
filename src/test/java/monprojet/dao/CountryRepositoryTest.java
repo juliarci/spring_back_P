@@ -1,5 +1,8 @@
 package monprojet.dao;
 
+import monprojet.business.CountryService;
+import monprojet.dao.entities.Country;
+import monprojet.dao.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -9,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import monprojet.entity.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -19,6 +21,8 @@ class CountryRepositoryTest {
 
     @Autowired
     private CountryRepository countryDAO;
+    @Autowired
+    private CountryService countryService;
 
     @Test
     void lesNomsDePaysSontTousDifferents() {
@@ -61,7 +65,7 @@ class CountryRepositoryTest {
     void calculPopulationJava() {
         log.info("On calcule la population totale d'un pays (Java)");
         int populationDuPays1 = 12; // cf. data.sql
-        assertEquals(populationDuPays1, countryDAO.populationDuPaysJava(1));
+        assertEquals(populationDuPays1, countryService.populationDuPaysJava(1));
     }
 
     @Test
